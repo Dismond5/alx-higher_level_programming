@@ -5,4 +5,4 @@ def new_in_list(my_list, idx, element):
     if idx >= 0 and idx <= len(newList) - 1:
         newList[idx] = element
         return newList
-    return 
+    return my_list 

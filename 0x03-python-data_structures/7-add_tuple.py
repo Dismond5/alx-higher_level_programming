@@ -14,4 +14,4 @@ def resolve(t=()):
         tnew = t[0], 0
     else:
         tnew = t[0], t[1]
-    return 
+    return tnew 

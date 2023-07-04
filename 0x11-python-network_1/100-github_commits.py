@@ -1,27 +1,16 @@
 #!/usr/bin/python3
-"""
-script that takes 2 arguments in order to list 10 commits (from the most
-recent to oldest) of the repository "rails" by the user "rails".
-Print all commits by: `<sha>: <author name>` (one by line)
-The first argument will be the repository name
-The second argument will be the owner name"""
-
+"""  fetches github user repo commits  """
 import requests
-import sys
+from sys import argv
 
-if __name__ = "__main__":
-    try:
-        repo_name = sys.argv[1]
-        username = sys.argv[2]
-        commmits_url = "https://api.github.com/repos/{}/{}/commits" \
-            .format(username, repo_name)
-        response = requests.get(commmits_url)
-        json_obj = response.json()
-        for i, obj in enumerate(json_obj):
-            if i == 10:
-                break
-            if type(obj) is dict:
-                name = obj.get('commit').get('author').get('name')
-                print("{}: {}".format(obj.get('sha'), name))
-    except ValueError as invalid_json:
-        pass
+if __name__ == "__main__":
+    r = requests.get('https://api.github.com/repos/{}/{}/commits'
+                     .format(argv[2], argv[1]))
+    counter = 0
+    for commit in sorted(r.json(), key=lambda c: c.get('commit')
+                         .get('author').get('date'), reverse=True):
+        print(commit.get('sha') + ": ", end="")
+        print(commit.get('commit').get('author').get('name'))
+        counter += 1
+        if counter == 10:
+            break

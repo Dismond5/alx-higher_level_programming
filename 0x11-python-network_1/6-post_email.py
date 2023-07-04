@@ -13,4 +13,4 @@ if __name__ = "__main__":
             "email": email
             }
     reponse = request.post(url, data=payload)
-    print(response.tct)
+    print(response.txt)
